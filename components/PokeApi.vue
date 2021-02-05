@@ -8,9 +8,12 @@
     </b-input-group>
     <p v-if="$fetchState.pending">procurando pokemon...</p>
     <p v-if="$fetchState.error">pokemon não encontrado</p>
-    <div v-if="!$fetchState.pending">
+    <div v-if="!$fetchState.pending && !$fetchState.error">
       <h3 class="title">{{ pokemon.name }}</h3>
-      <p class="abilities" v-for="ability in pokemon.abilities">{{ ability.ability.name }}</p>
+      <div class="abilities">
+        <p v-for="ability in pokemon.abilities">{{ ability.ability.name }}</p>
+      </div>
+      <img type="svg" :src="pokemon.sprites.other.dream_world.front_default" />
     </div>
   </div>
 </template>
@@ -18,7 +21,7 @@
 export default {
   data () {
     return {
-      pokemonInput: '',
+      pokemonInput: '1',
       pokemon: {}
     }
   },
@@ -37,7 +40,13 @@ export default {
     opacity: 0;
   }
 }
+img {
+  width: 30%;
+}
 .abilities {
   color: #526488;
+  display: flex;
+  margin: 0 auto 0 auto;
+  justify-content: space-around;
 }
 </style>
